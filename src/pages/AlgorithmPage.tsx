@@ -13,9 +13,15 @@ interface AlgorithmPageProps {
 
 export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
   const { id } = useParams();
-  const algorithm = algorithms.find((algo) => algo.id === id);
-  const [selectedLang, setSelectedLang] = useState(languages[0].id);
   const [isCopied, setIsCopied] = useState(false);
+  const algorithm = algorithms.find((algo) => algo.id === id);
+  const [selectedLang, setSelectedLang] = useState(() => {
+    const firstAvailableLang = languages.find(
+      lang => algorithm?.implementations[lang.id] !== undefined
+    );
+
+    return firstAvailableLang ? firstAvailableLang.id : languages[0].id;
+  });
 
   if (!algorithm) {
     return (
