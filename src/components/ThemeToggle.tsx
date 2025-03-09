@@ -1,27 +1,11 @@
-import React from 'react';
 import { Icon } from '@iconify/react';
 
-export function ThemeToggle() {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>(() => {
-    const savedTheme = localStorage.getItem('theme');
+interface ThemeToggleProps {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
 
-    if (savedTheme) {
-      return savedTheme as 'light' | 'dark';
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  });
-
-  React.useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  };
-
+export function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
   return (
     <button
       onClick={toggleTheme}

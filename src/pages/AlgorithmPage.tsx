@@ -1,16 +1,21 @@
-import React from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Icon } from "@iconify/react";
 import { algorithms } from "../data/algorithms";
 import { languages } from "../data/languages";
 
-export function AlgorithmPage() {
+interface AlgorithmPageProps {
+  isDarkTheme: boolean;
+}
+
+export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
   const { id } = useParams();
   const algorithm = algorithms.find((algo) => algo.id === id);
-  const [selectedLang, setSelectedLang] = React.useState(languages[0].id);
-  const [isCopied, setIsCopied] = React.useState(false);
+  const [selectedLang, setSelectedLang] = useState(languages[0].id);
+  const [isCopied, setIsCopied] = useState(false);
 
   if (!algorithm) {
     return (
@@ -48,24 +53,26 @@ export function AlgorithmPage() {
       </p>
 
       <div className="flex gap-2">
-        {languages.map((lang) => (
-          <button
-            key={lang.id}
-            onClick={() => setSelectedLang(lang.id)}
-            className={`p-2 transition-colors ${
-              selectedLang === lang.id
-                ? "bg-rose-500"
-                : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
-          >
-            <Icon
-              icon={lang.icon}
-              className={`w-6 h-6 ${
-                selectedLang === lang.id ? "text-white" : ""
+        {languages
+          .filter((lang) => algorithm.implementations[lang.id] !== undefined)
+          .map((lang) => (
+            <button
+              key={lang.id}
+              onClick={() => setSelectedLang(lang.id)}
+              className={`p-2 transition-colors ${
+                selectedLang === lang.id
+                  ? "text-rose-500"
+                  : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
               }`}
-            />
-          </button>
-        ))}
+            >
+              <Icon
+                icon={lang.icon}
+                className={`w-8 h-8 ${
+                  selectedLang === lang.id ? "text-rose-500" : ""
+                }`}
+              />
+            </button>
+          ))}
       </div>
 
       <div className="relative">
@@ -80,24 +87,18 @@ export function AlgorithmPage() {
             />
           </button>
         </div>
-        <div className="overflow-x-auto bg-[#282c34] p-4">
+        <div
+          className={`overflow-x-auto ${
+            isDarkTheme ? "bg-[#282c34]" : "bg-[#fafafa]"
+          } p-4`}
+        >
           <SyntaxHighlighter
             language={selectedLang}
-            style={{
-              ...oneDark,
-              'pre[class*="language-"]': {
-                ...oneDark['pre[class*="language-"]'],
-                background: "#282c34",
-              },
-              'code[class*="language-"]': {
-                ...oneDark['code[class*="language-"]'],
-                background: "#282c34",
-              },
-            }}
+            style={isDarkTheme ? oneDark : oneLight}
             customStyle={{
               margin: 0,
               padding: 0,
-              background: "#282c34",
+              background: isDarkTheme ? "#282c34" : "#fafafa",
             }}
           >
             {algorithm.implementations[selectedLang]}
