@@ -1,54 +1,109 @@
-# React + TypeScript + Vite
+<p align="center">
+	<img src="https://github.com/cseri502/vault-of-algorithms/blob/main/public/machine-learning.png" width="128" title="Vault of Algorithms">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">Vault of Algorithms</h1>
 
-Currently, two official plugins are available:
+## 📒 Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A curated collection of algorithms implemented in multiple programming languages with detailed explanations. This interactive web application helps developers and computer science enthusiasts discover, learn, and implement various algorithms.
 
-## Expanding the ESLint configuration
+## 🚀 Technologies & Tools
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+<br />
+![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## ✨ Features
+
+- **Multi-language Support**: Access algorithm implementations in various programming languages
+- **Comprehensive Collection**: Explore algorithms across different categories
+- **Detailed Explanations**: Learn how each algorithm works with thorough documentation
+- **Syntax Highlighting**: View code with proper syntax highlighting for easier comprehension
+- **Copy & Use**: Easily copy code snippets for immediate use in your projects
+- **Dark/Light Mode**: Choose your preferred theme for a comfortable viewing experience
+- **Responsive Design**: Enjoy a seamless experience across desktop and mobile devices
+- **Search Functionality**: Quickly find specific algorithms with the built-in search feature
+
+## 🏗️ Project Structure
+
+```
+vault-of-algorithms/
+├── src/
+│   ├── components/
+│   │   ├── AlgorithmCard.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   └── SearchBar.tsx
+│   │   └── ThemeToggle.tsx
+│   ├── data/
+│   │   ├── algorithms.ts
+│   │   └── languages.ts
+│   ├── pages/
+│   │   ├── AlgorithmPage.tsx
+│   │   └── HomePage.tsx
+│   └── snippets/
+│       ├── sorting/
+│       ├── searching/
+│       └── ...
+│   ├── utils/
+│   │   └── snippetLoader.ts
+│   └── App.tsx
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚦 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Node.js (version 14.x or higher)
+- npm, pnpm or yarn
+
+### Installation
+
+1. Clone the repository
+   ```
+   git clone https://github.com/cseri502/vault-of-algorithms.git
+   ```
+
+2. Navigate to the project directory
+   ```
+   cd vault-of-algorithms
+   ```
+
+3. Install dependencies
+   ```
+   (p)npm install
+   # or
+   yarn install
+   ```
+
+4. Start the development server
+   ```
+   (p)npm run dev
+   # or
+   yarn start
+   ```
+
+5. Open your browser and visit `http://localhost:xxxx`
+
+## 📝 Adding New Algorithms
+
+To add a new algorithm to the collection:
+
+1. Add the algorithm details to `src/data/algorithms.ts`
+2. Create implementation files in the appropriate language folders under `snippets/`
+3. Make sure to update the `availableLanguages` property to reflect supported languages
+
+## ⏩ References
+- [Machine learning icons created by Muhammad_Usman - Flaticon](https://www.flaticon.com/free-icons/machine-learning)
+
+<br />
+
+➡️ [Take a look at some of my other projects.](https://github.com/cseri502)
