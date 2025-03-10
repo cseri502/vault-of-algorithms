@@ -3,9 +3,7 @@ export type Algorithm = {
   name: string;
   description: string;
   category: string;
-  implementations: {
-    [key: string]: string;
-  };
+  availableLanguages: Array<string>;
 };
 
 export type Language = {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -6,6 +6,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Icon } from "@iconify/react";
 import { algorithms } from "../data/algorithms";
 import { languages } from "../data/languages";
+import { loadSnippet } from "../utils/snippetLoader";
 
 interface AlgorithmPageProps {
   isDarkTheme: boolean;
@@ -14,14 +15,26 @@ interface AlgorithmPageProps {
 export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
   const { id } = useParams();
   const [isCopied, setIsCopied] = useState(false);
+  const [implementation, setImplementation] = useState("");
   const algorithm = algorithms.find((algo) => algo.id === id);
+  
   const [selectedLang, setSelectedLang] = useState(() => {
     const firstAvailableLang = languages.find(
-      lang => algorithm?.implementations[lang.id] !== undefined
+      lang => algorithm?.availableLanguages.includes(lang.id)
     );
-
     return firstAvailableLang ? firstAvailableLang.id : languages[0].id;
   });
+
+  useEffect(() => {
+    if (algorithm) {
+      loadSnippet(algorithm.category, algorithm.id, selectedLang)
+        .then(code => {
+          if (code) {
+            setImplementation(code);
+          }
+        });
+    }
+  }, [algorithm, selectedLang]);
 
   if (!algorithm) {
     return (
@@ -35,9 +48,7 @@ export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
   }
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(
-      algorithm.implementations[selectedLang]
-    );
+    await navigator.clipboard.writeText(implementation);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
@@ -60,7 +71,7 @@ export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
 
       <div className="flex gap-2">
         {languages
-          .filter((lang) => algorithm.implementations[lang.id] !== undefined)
+          .filter((lang) => algorithm.availableLanguages.includes(lang.id))
           .map((lang) => (
             <button
               key={lang.id}
@@ -107,7 +118,7 @@ export function AlgorithmPage({ isDarkTheme }: AlgorithmPageProps) {
               background: isDarkTheme ? "#282c34" : "#fafafa",
             }}
           >
-            {algorithm.implementations[selectedLang]}
+            {implementation}
           </SyntaxHighlighter>
         </div>
       </div>

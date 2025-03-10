@@ -1,16 +1,16 @@
 export const languages = [
   {
-    id: 'javascript',
+    id: 'js',
     name: 'JavaScript',
     icon: 'devicon-plain:javascript'
   },
   {
-    id: 'python',
+    id: 'py',
     name: 'Python',
     icon: 'devicon-plain:python'
   },
   {
-    id: 'csharp',
+    id: 'cs',
     name: 'C#',
     icon: 'devicon-plain:csharp'
   },
